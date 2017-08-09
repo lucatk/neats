@@ -5,7 +5,9 @@ const fs = require('fs');
 
 "cache/librespot".split("/").reduce((path, folder) => {
   path += folder + "/";
-  fs.mkdirSync(path);
+  if(!fs.existsSync(path)) {
+    fs.mkdirSync(path);
+  }
 });
 
 const speakerOptions = {
@@ -17,10 +19,9 @@ var speaker = new Speaker(speakerOptions);
 
 var librespot = spawn("ext/librespot/librespot", [
   "--cache", "cache/librespot",
-  "--name", "neats-test"
+  "--name", "neats",
+  "--backend", "pipe"
 ]);
-
-librespot.stdout.pipe(process.stdout);
 
 // var timeout = null;
 // librespot.stdout.on("data", function(data) {
@@ -33,4 +34,4 @@ librespot.stdout.pipe(process.stdout);
 //     librespot.stdout.pipe(speaker);
 //   }, 500);
 // });
-// librespot.stdout.pipe(speaker);
+librespot.stdout.pipe(speaker);
