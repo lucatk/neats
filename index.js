@@ -15,20 +15,23 @@ const speakerOptions = {
   bitDepth: 16,
   sampleRate: 44100
 };
-var speaker = new Speaker(speakerOptions);
-
-const speaker_errorCatcher = (err) => {
-  console.log(err);
+var speaker = null;
+const speakerInit = () => {
   speaker = new Speaker(speakerOptions);
-  speaker.on("error", speaker_errorCatcher);
+  speaker.on("error", (err) => {
+    console.log(err);
+    speakerInit();
+  });
+  librespot.stdout.pipe(speaker);
 };
-speaker.on("error", speaker_errorCatcher);
 
 var librespot = spawn("ext/librespot/librespot", [
   "--cache", "cache/librespot",
   "--name", "neats",
   "--backend", "pipe"
 ]);
+
+speakerInit();
 
 // var timeout = null;
 // librespot.stdout.on("data", function(data) {
@@ -41,4 +44,3 @@ var librespot = spawn("ext/librespot/librespot", [
 //     librespot.stdout.pipe(speaker);
 //   }, 500);
 // });
-librespot.stdout.pipe(speaker);
