@@ -20,15 +20,17 @@ var librespot = spawn("ext/librespot/librespot", [
   "--name", "neats-test"
 ]);
 
-var timeout = null;
-librespot.stdout.on("data", function(data) {
-  if(timeout !== null) {
-    clearTimeout(timeout);
-  }
-  timeout = setTimeout(function() {
-    speaker.close();
-    speaker = new Speaker(speakerOptions);
-    librespot.stdout.pipe(speaker);
-  }, 500);
-});
-librespot.stdout.pipe(speaker);
+librespot.stdout.pipe(process.stdout);
+
+// var timeout = null;
+// librespot.stdout.on("data", function(data) {
+//   if(timeout !== null) {
+//     clearTimeout(timeout);
+//   }
+//   timeout = setTimeout(function() {
+//     speaker.close();
+//     speaker = new Speaker(speakerOptions);
+//     librespot.stdout.pipe(speaker);
+//   }, 500);
+// });
+// librespot.stdout.pipe(speaker);
