@@ -18,6 +18,7 @@ const speakerOptions = {
 var speaker = new Speaker(speakerOptions);
 
 const speaker_errorCatcher = (err) => {
+  console.log(err);
   speaker = new Speaker(speakerOptions);
   speaker.on("error", speaker_errorCatcher);
 };
