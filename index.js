@@ -17,6 +17,10 @@ const speakerOptions = {
 };
 var speaker = new Speaker(speakerOptions);
 
+speaker.on("error", (err) => {
+  console.log(err);
+});
+
 var librespot = spawn("ext/librespot/librespot", [
   "--cache", "cache/librespot",
   "--name", "neats",
