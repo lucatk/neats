@@ -57,7 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-ext/
-cache/
+/ext
+/cache
 
 .DS_Store
