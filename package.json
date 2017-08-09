@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "mkdir -p ext/librespot && sources/librespot/cargo build --release --features pulseaudio-backend",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
